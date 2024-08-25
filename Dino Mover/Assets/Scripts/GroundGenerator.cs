@@ -9,6 +9,8 @@ public class GroundGenerator : MonoBehaviour
     GameObject ground;
     [SerializeField]
     float countdown = 1.0f;
+    [SerializeField]
+    GameObject _groundSpawnPos;
     void Start()
     {
         
@@ -26,6 +28,6 @@ public class GroundGenerator : MonoBehaviour
     }
     void GroundGen()
     {
-        Instantiate(ground, new Vector3(ground.transform.position.x + 45.0f, ground.transform.position.y, ground.transform.position.z), Quaternion.identity);
+        Instantiate(ground, new Vector3(ground.transform.position.x + 40.0f, _groundSpawnPos.transform.position.y, ground.transform.position.z), Quaternion.identity);
     }
 }

@@ -18,6 +18,6 @@ public class ButtonController : MonoBehaviour
     }
     public void OnRetryClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

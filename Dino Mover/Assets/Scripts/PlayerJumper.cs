@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerJumper : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    TMP_Text _lives;
     [SerializeField]
     Animator animator;
     [SerializeField]
@@ -18,7 +20,7 @@ public class PlayerJumper : MonoBehaviour
     AudioSource run;
     [SerializeField]
     AudioSource gameover;
-
+    bool _isJumping = false;
 
     void Start()
     {
@@ -28,27 +30,42 @@ public class PlayerJumper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
+        if((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            run.enabled = false;
-            rb.velocity = Vector3.up * jumpForce;
-            StartCoroutine(JumpRoute());
+            if(!_isJumping)
+            {
+                run.enabled = false;
+                rb.velocity = Vector3.up * jumpForce;
+                StartCoroutine(JumpRoute());
+            }
+           
             
         }
     }
     IEnumerator JumpRoute()
     {
+        _isJumping = true;
         animator.Play("jump");
         jump.Play();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.25f);
         animator.Play("run");
         run.enabled = true;
+        _isJumping = false;
     }
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "obstacle")
         {
-            StartCoroutine(Dead());
+            if(LifeManager.Instance.ShowLives() > 1)
+            {
+                Destroy(col.gameObject);
+                LifeManager.Instance.DecreaseLife();
+                UpdateLives();
+            }
+            else
+            {
+                StartCoroutine(Dead()); 
+            }
         }
     }
     IEnumerator Dead()
@@ -57,6 +74,14 @@ public class PlayerJumper : MonoBehaviour
         animator.Play("dead");
         yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
+    }
+
+    void UpdateLives()
+    {
+        if (PlayerPrefs.HasKey("Lives"))
+        {
+            _lives.text = PlayerPrefs.GetInt("Lives").ToString();
+        }
     }
 }

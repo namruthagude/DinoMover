@@ -6,6 +6,8 @@ using TMPro;
 public class ScoreCaluculator : MonoBehaviour
 {
     [SerializeField]
+    PauseManager pauseManager;
+    [SerializeField]
     TMP_Text score;
     float count;
     // Start is called before the first frame update
@@ -17,10 +19,14 @@ public class ScoreCaluculator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        count = count + 0.01f;
+        if (!pauseManager.ISPaused())
+        {
+            count = count + 0.01f;
+
+            int temp = (int)count;
+
+            score.SetText(temp.ToString());
+        }
         
-         int temp = (int)count;
-        
-        score.SetText(temp.ToString());
     }
 }

@@ -8,6 +8,8 @@ public class ObjectMover : MonoBehaviour
     GameObject objectToMove;
     [SerializeField]
     float speed;
+    [SerializeField]
+    float speedIncrease = 0.01f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class ObjectMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
+        GameManager.Speed += speedIncrease * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x - GameManager.Speed * Time.deltaTime, transform.position.y, transform.position.z);
     }
 }
