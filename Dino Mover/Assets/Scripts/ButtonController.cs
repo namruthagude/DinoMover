@@ -20,4 +20,14 @@ public class ButtonController : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void IncreaseLives()
+    {
+        AdsManager.instance.ShowLivesAd();
+    }
+
+    public void DoubleCoins()
+    {
+        AdsManager.instance.ShowCoinsAd();
+    }
 }
