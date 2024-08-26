@@ -20,6 +20,8 @@ public class PlayerJumper : MonoBehaviour
     AudioSource run;
     [SerializeField]
     AudioSource gameover;
+    [SerializeField]
+    TMP_Text coins;
     bool _isJumping = false;
 
     void Start()
@@ -54,17 +56,30 @@ public class PlayerJumper : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.tag == "obstacle")
+        Debug.Log("Tag " + col.gameObject.tag);
+       
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Coin")
         {
-            if(LifeManager.Instance.ShowLives() > 1)
+            Debug.Log("Collided with coin");
+            coins.text = (int.Parse(coins.text) + 1).ToString();
+            GameManager.Coins++;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "obstacle")
+        {
+            if (LifeManager.Instance.ShowLives() > 1)
             {
-                Destroy(col.gameObject);
+                Destroy(collision.gameObject);
                 LifeManager.Instance.DecreaseLife();
                 UpdateLives();
             }
             else
             {
-                StartCoroutine(Dead()); 
+                StartCoroutine(Dead());
             }
         }
     }

@@ -21,7 +21,7 @@ public class ScoreCaluculator : MonoBehaviour
     {
         if (!pauseManager.ISPaused())
         {
-            count = count + 0.01f;
+            count = count + 0.02f;
 
             int temp = (int)count;
 

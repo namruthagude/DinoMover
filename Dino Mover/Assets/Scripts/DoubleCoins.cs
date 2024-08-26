@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DoubleCoins : MonoBehaviour
 {
 #if UNITY_ANDROID
@@ -63,6 +64,22 @@ public class DoubleCoins : MonoBehaviour
                 // TODO: Reward the user.
                 Debug.Log(string.Format(rewardMsg, reward.Type, reward.Amount));
                 //UiManager.Instance.HintPanel.SetActive(true);
+                if (GameManager.Coins != null)
+                {
+                    if (PlayerPrefs.HasKey("Coins"))
+                    {
+                        int coins = GameManager.Coins - PlayerPrefs.GetInt("Coins");
+                        GameManager.Coins = GameManager.Coins + coins;
+                       
+                    }
+                    else
+                    {
+                        int coins = GameManager.Coins;
+                        GameManager.Coins += coins;
+                        
+                    }
+                    
+                }
             });
         }
     }

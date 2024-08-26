@@ -6,11 +6,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public static int Coins = 0;
     public static float Speed = 5; 
     [SerializeField]
     TMP_Text _lives;
     [SerializeField]
     TMP_Text timerText;
+    [SerializeField]
+    TMP_Text coinsValue;
     float remainingTime = 300;
 
     private void Awake()
@@ -18,11 +21,26 @@ public class GameManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.HasKey("Coins"))
+        {
+            Coins = PlayerPrefs.GetInt("Coins");
+            coinsValue.text = Coins.ToString();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Coins", 0);
+           
+        }
         UpdateLives();
     }
 
@@ -62,5 +80,10 @@ public class GameManager : MonoBehaviour
     public void DisableTimer()
     {
         timerText.gameObject.SetActive(false);
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("Coins", GameManager.Coins);
     }
 }

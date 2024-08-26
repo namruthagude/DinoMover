@@ -54,10 +54,8 @@ public class LifeManager : MonoBehaviour
         {
            _timer += Time.deltaTime;
             SettingTimer();
-            Debug.Log("Timer" + _timer);
             if(_timer >= lifeIncreaseInterval * 60)
             {
-                Debug.Log("Increasing life");
                 IncreaseLife();
                 _timer = 0;
             }
