@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "10BE461P01001QB",
         "name": "com.DefaultCompany.DinoMover",
-        "processId": 13797,
+        "processId": 28229,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,12 @@
             "deviceId": "10BE461P01001QB",
             "name": "com.DefaultCompany.DinoMover",
             "processId": 13797,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 28229,
             "exited": false
         }
     ],
@@ -84,6 +90,13 @@
         "BitRateK": 20000,
         "DisplayIdEnabled": false,
         "DisplayId": ""
+    },
+    "m_ScreenCaptureSettings": {
+        "Mode": 0,
+        "m_LastSaveLocation": [
+            "E:\\New Games\\DinoMover\\Dino Mover",
+            "E:\\New Games\\DinoMover\\Dino Mover"
+        ]
     },
     "m_InputSettings": {
         "ShiftModifier": false,

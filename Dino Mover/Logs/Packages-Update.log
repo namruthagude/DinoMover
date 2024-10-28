@@ -73,3 +73,11 @@ The following packages were updated:
   com.unity.ide.rider from version 3.0.27 to 3.0.31
   com.unity.textmeshpro from version 3.0.6 to 3.0.7
   com.unity.visualscripting from version 1.9.1 to 1.9.4
+
+=== Mon Sep 30 10:55:43 2024
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.mobile.android-logcat from version 1.4.2 to 1.4.3
