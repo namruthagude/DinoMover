@@ -26,6 +26,7 @@ public class ScoreCaluculator : MonoBehaviour
             int temp = (int)count;
 
             score.SetText(temp.ToString());
+            GameManager.Score = temp;
         }
         
     }

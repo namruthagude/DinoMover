@@ -33,7 +33,7 @@ public class ObstacleGenerator : MonoBehaviour
     void ObstacleGen()
     {
         int i = Random.Range(0, obstacle.Length);
-        Instantiate(obstacle[i], new Vector3(Random.Range(cam.transform.position.x + 10, cam.transform.position.x + 15), _obstacleSpawnPos.transform.position.y, 0.0f), Quaternion.identity);
+        Instantiate(obstacle[i], new Vector3(Random.Range(_obstacleSpawnPos.transform.position.x + 10, _obstacleSpawnPos.transform.position.x + 15), _obstacleSpawnPos.transform.position.y, 0.0f), Quaternion.identity);
 
     }
 }

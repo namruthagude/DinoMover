@@ -11,6 +11,8 @@ public class MainMenuManager : MonoBehaviour
     TMP_Text _lives;
     [SerializeField]
     TMP_Text timerText;
+    [SerializeField]
+    VibrationManager vibrationManager;
     float remainingTime = 300;
 
     private void Awake()
@@ -30,7 +32,7 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Update entered");
+    
         if (PlayerPrefs.HasKey("Lives"))
         {
             if (_lives.text != PlayerPrefs.GetInt("Lives").ToString())
@@ -41,15 +43,18 @@ public class MainMenuManager : MonoBehaviour
     }
     public void StartGame()
     {
+        vibrationManager.MediumVibration();
         SceneManager.LoadScene(1);
     }
     public void Quit()
     {
+        vibrationManager.MediumVibration();
         Application.Quit();
     }
 
     public void ShowAchievements()
     {
+        vibrationManager.MediumVibration();
         Debug.Log("Showing Achievements");
     }
     void UpdateLives()
@@ -78,5 +83,11 @@ public class MainMenuManager : MonoBehaviour
     public void DisableTimer()
     {
         timerText.gameObject.SetActive(false);
+    }
+
+    public void Settings()
+    {
+        vibrationManager.MediumVibration();
+        Debug.Log("Settings");
     }
 }

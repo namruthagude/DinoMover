@@ -21,6 +21,8 @@ public class PlayerJumper : MonoBehaviour
     [SerializeField]
     AudioSource gameover;
     [SerializeField]
+    VibrationManager vibrationManager;
+    [SerializeField]
     TMP_Text coins;
     bool _isJumping = false;
 
@@ -47,6 +49,7 @@ public class PlayerJumper : MonoBehaviour
     IEnumerator JumpRoute()
     {
         _isJumping = true;
+        vibrationManager.HighVibration();
         animator.Play("jump");
         jump.Play();
         yield return new WaitForSeconds(1.25f);
@@ -64,21 +67,28 @@ public class PlayerJumper : MonoBehaviour
     {
         if(collision.gameObject.tag == "Coin")
         {
+            FeedbackManager.Instance.CoinShake();
+            vibrationManager.MediumVibration();
             Debug.Log("Collided with coin");
             coins.text = (int.Parse(coins.text) + 1).ToString();
-            GameManager.Coins++;
+            GameManager.Coins = GameManager.Coins + 1;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.tag == "obstacle")
         {
             if (LifeManager.Instance.ShowLives() > 1)
             {
+                FeedbackManager.Instance.ObstacleShake();
+                vibrationManager.HighVibration();
                 Destroy(collision.gameObject);
                 LifeManager.Instance.DecreaseLife();
                 UpdateLives();
             }
             else
             {
+                LeaderboardManager.Instance.SetCoinsEntry(PlayerPrefs.GetString("PlayerName"),GameManager.Coins);
+                LeaderboardManager.Instance.SetDistanceEntry(PlayerPrefs.GetString("PlayerName"), GameManager.Score);
+                PlayerPrefs.SetInt("Coins", GameManager.Coins);
                 StartCoroutine(Dead());
             }
         }
@@ -86,7 +96,9 @@ public class PlayerJumper : MonoBehaviour
     IEnumerator Dead()
     {
         gameover.Play();
+        FeedbackManager.Instance.GameOverShake();
         animator.Play("dead");
+        vibrationManager.FailureVibration();
         yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
         SceneManager.LoadScene(2);

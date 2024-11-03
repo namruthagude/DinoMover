@@ -7,13 +7,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public static int Coins = 0;
-    public static float Speed = 5; 
+    public static float Speed = 5;
+    public static int Score;
+
     [SerializeField]
     TMP_Text _lives;
     [SerializeField]
     TMP_Text timerText;
     [SerializeField]
     TMP_Text coinsValue;
+    [SerializeField]
+    TMP_Text scoreValue;
+
     float remainingTime = 300;
 
     private void Awake()
@@ -21,7 +26,7 @@ public class GameManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -65,6 +70,11 @@ public class GameManager : MonoBehaviour
     }
     public void SettingCountDown(float time)
     {
+        if (timerText == null)
+        {
+            Debug.LogError("timerText is not assigned in GameManager!");
+            return;
+        }
         //Enabling Timer
         timerText.gameObject.SetActive(true);
         remainingTime = time;

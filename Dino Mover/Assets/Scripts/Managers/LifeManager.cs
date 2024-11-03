@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using System.IO;
 
 public class LifeManager : MonoBehaviour
 {
@@ -18,7 +19,9 @@ public class LifeManager : MonoBehaviour
     
     private void Awake()
     {
-        if(Instance == null)
+        
+
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -27,18 +30,10 @@ public class LifeManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-       
-
+        //Checking fresh install or not
+        CheckInstall();
         //Setting Lives
-        if (PlayerPrefs.HasKey("Lives"))
-        {
-            lives = PlayerPrefs.GetInt("Lives");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("Lives", 5);
-            lives = PlayerPrefs.GetInt("Lives");
-        }
+        CheckingLives();
 
         //Calculating Lives
         CaluculateLives();
@@ -61,6 +56,24 @@ public class LifeManager : MonoBehaviour
             }
         }
        
+    }
+
+    void CheckingLives()
+    {
+        if (PlayerPrefs.HasKey("Lives"))
+        {
+            Debug.LogError("Has key");
+            lives = PlayerPrefs.GetInt("Lives");
+            Debug.LogError(lives);
+        }
+        else
+        {
+            Debug.LogError(" Does not had key");
+            PlayerPrefs.SetInt("Lives", 5);
+            PlayerPrefs.Save();
+            lives = PlayerPrefs.GetInt("Lives");
+            Debug.LogError(lives);
+        }
     }
 
     public void SettingTimer()
@@ -94,6 +107,25 @@ public class LifeManager : MonoBehaviour
     {
         return lives;
     }
+    void CheckInstall() {
+        string path = Path.Combine(Application.persistentDataPath, "install_flag.txt");
+
+        if (File.Exists(path))
+        {
+            // File exists, so this is an existing installation
+            Debug.Log("App opened - existing installation");
+        }
+        else
+        {
+            
+            // File doesn't exist, so this is a fresh install
+            Debug.Log("App opened - fresh install");
+            PlayerPrefs.DeleteAll();  // Use only for testing
+            PlayerPrefs.Save();
+            // Create the file to mark the app as installed
+            File.WriteAllText(path, "installed");
+        }
+    }
     public void IncreaseLife()
     {
         if(lives < maxLives)
@@ -122,46 +154,38 @@ public class LifeManager : MonoBehaviour
             string lastUpdatedTimeString = PlayerPrefs.GetString(_lastlifeUpdateTimeKey);
             DateTime lastUpdateTime = DateTime.Parse(lastUpdatedTimeString);
             TimeSpan timePassed = DateTime.Now - lastUpdateTime;
-            if(PlayerPrefs.HasKey("RemainingTime")){
-                float seconds = (float)(timePassed.TotalMinutes) * 60 ;
 
-                // Caluculating previous remaining time and last time logged of
-                if(seconds > PlayerPrefs.GetFloat("RemainingTime")){
-                    seconds = seconds - PlayerPrefs.GetFloat("RemainingTime");
+            if (PlayerPrefs.HasKey("RemainingTime"))
+            {
+                float secondsPassed = (float)timePassed.TotalSeconds;
+                float storedRemainingTime = PlayerPrefs.GetFloat("RemainingTime");
+
+                if (secondsPassed >= storedRemainingTime)
+                {
+                    secondsPassed -= storedRemainingTime;
                     lives++;
-                    float minutes = seconds / 60;
-                    int livesToadd = Mathf.FloorToInt(minutes / lifeIncreaseInterval);
-                    if (lives < maxLives)
-                    {
-                        lives += livesToadd;
-                        if (lives > maxLives)
-                        {
-                            lives = maxLives;
-                        }
-                        UpdateLives();
-
-                    }
+                    int livesToAdd = Mathf.FloorToInt(secondsPassed / (lifeIncreaseInterval * 60));
+                    lives = Mathf.Min(maxLives, lives + livesToAdd);
+                    UpdateLives();
                 }
-                else{
-                    // removing remainingTime when logged out and increase life
-                    remainingTime = PlayerPrefs.GetFloat("RemainingTime") - seconds;
-                    
+                else
+                {
+                    remainingTime = storedRemainingTime - secondsPassed;
                 }
-
-                
             }
-            else{
+            else
+            {
+                remainingTime = 300; // Set to default if it's the first time
                 SaveLastLifeUpdateTime();
             }
-           
-            
-
-            //SaveLastLifeUpdateTime();
         }
-        else{
+        else
+        {
+            remainingTime = 300;
             SaveLastLifeUpdateTime();
         }
     }
+
 
     void SaveLastLifeUpdateTime()
     {
@@ -171,6 +195,7 @@ public class LifeManager : MonoBehaviour
     void UpdateLives()
     {
         PlayerPrefs.SetInt("Lives", lives);
+        PlayerPrefs.Save();
     }
 
     void OnApplicationQuit()
@@ -180,6 +205,25 @@ public class LifeManager : MonoBehaviour
 
         //saving remaining time which will complete 1 life time
         PlayerPrefs.SetFloat("RemainingTime", remainingTime);
-        
+        PlayerPrefs.Save();
+
     }
+    void OnApplicationPause(bool isPaused)
+    {
+        if (isPaused) // App is going into the background
+        {
+            // Save any important data here
+            PlayerPrefs.SetInt("Lives", lives);  // Example of saving lives
+            PlayerPrefs.SetFloat("RemainingTime", remainingTime);  // Example of saving remaining time
+            SaveLastLifeUpdateTime();  // Any other custom save function you might have
+            PlayerPrefs.Save();  // Ensure PlayerPrefs data is written to disk
+        }
+        else
+        {
+            Debug.Log("App resumed");
+            CheckingLives();
+            CaluculateLives();
+        }
+    }
+
 }

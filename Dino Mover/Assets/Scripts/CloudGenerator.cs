@@ -29,7 +29,7 @@ public class CloudGenerator : MonoBehaviour
     }
     void  CloudGen(){
         int i = Random.Range(0, cloud.Length);
-        Instantiate(cloud[i], new Vector3(Random.Range(cam.transform.position.x +10, cam.transform.position.x + 15), Random.Range(1.5f,2.0f), 0.0f), Quaternion.identity);
+        Instantiate(cloud[i], new Vector3(Random.Range(cam.transform.position.x +10, cam.transform.position.x + 15), Random.Range(10.0f,14.0f), 0.0f), Quaternion.identity);
        
     }
 }
