@@ -62,17 +62,17 @@ public class LifeManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("Lives"))
         {
-            Debug.LogError("Has key");
+            
             lives = PlayerPrefs.GetInt("Lives");
-            Debug.LogError(lives);
+            
         }
         else
         {
-            Debug.LogError(" Does not had key");
+            
             PlayerPrefs.SetInt("Lives", 5);
             PlayerPrefs.Save();
             lives = PlayerPrefs.GetInt("Lives");
-            Debug.LogError(lives);
+            
         }
     }
 

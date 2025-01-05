@@ -18,6 +18,8 @@ public class LeaderboardManager : MonoBehaviour
     GameObject settingUsernamePanel;
     [SerializeField]
     GameObject leaderBoardPanel;
+    [SerializeField]
+    GameObject internetConnectionPanel;
 
     private string coinsKey = "5a3c6604e10c124e4786ceb5268ab7fd89b3273b97f20770388427b52de652aa";
     private string distanceKey = "344eb9f4eedf9abd53883b90605c6e7b336b7037361c9d44e3f392b95a8a6fbf";
@@ -38,8 +40,7 @@ public class LeaderboardManager : MonoBehaviour
         //Checking player set name for leaderboard or not 
         CheckingPlayerExists();
 
-        // Loading COin Leaderboard
-        LoadCoinLeaderBoard();
+        
     }
 
     // Update is called once per frame
@@ -148,13 +149,23 @@ public class LeaderboardManager : MonoBehaviour
 
     public void SetUsername()
     {
-        ClosePanel();
-        SettingPlayerName(username.text);
+        
+        if (InternetChecker.IsConnectedToInternet())
+        {
+            SettingPlayerName(username.text);
+            ClosePanel();
+        }
+        else
+        {
+            internetConnectionPanel.SetActive(true);
+        }
+       
     }
 
     public void ClosePanel()
     {
         settingUsernamePanel.SetActive(false);
+        internetConnectionPanel.SetActive(false);
     }
 
     void DisablingEntries()
@@ -181,7 +192,16 @@ public class LeaderboardManager : MonoBehaviour
 
     public void OpenLeaderBoard()
     {
-        leaderBoardPanel.SetActive(true);
+        if (InternetChecker.IsConnectedToInternet())
+        {
+            // Loading COin Leaderboard
+            LoadCoinLeaderBoard();
+            leaderBoardPanel.SetActive(true);
+        }
+        else
+        {
+            internetConnectionPanel.SetActive(true) ;
+        }
     }
 
     public void CloseLeaderBoard()

@@ -3,29 +3,11 @@
     "m_SelectedProcess": {
         "deviceId": "10BE461P01001QB",
         "name": "com.DefaultCompany.DinoMover",
-        "processId": 16983,
+        "processId": 24110,
         "exited": false
     },
     "m_SelectedPriority": 1,
     "m_KnownProcessesForSerialization": [
-        {
-            "deviceId": "10BE461P01001QB",
-            "name": "com.DefaultCompany.DinoMover",
-            "processId": 18143,
-            "exited": true
-        },
-        {
-            "deviceId": "10BE461P01001QB",
-            "name": "com.DefaultCompany.DinoMover",
-            "processId": 18757,
-            "exited": true
-        },
-        {
-            "deviceId": "10BE461P01001QB",
-            "name": "com.DefaultCompany.DinoMover",
-            "processId": 1921,
-            "exited": true
-        },
         {
             "deviceId": "10BE461P01001QB",
             "name": "com.DefaultCompany.DinoMover",
@@ -36,18 +18,96 @@
             "deviceId": "10BE461P01001QB",
             "name": "com.DefaultCompany.DinoMover",
             "processId": 9260,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "10BE461P01001QB",
             "name": "com.vivo.gallery",
             "processId": 32615,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "10BE461P01001QB",
             "name": "com.DefaultCompany.DinoMover",
             "processId": 16983,
+            "exited": true
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.android.launcher3",
+            "processId": 3648,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 32710,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 2084,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 4366,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 5625,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 7466,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 8847,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 9870,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 15960,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 18049,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 21751,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 22487,
+            "exited": false
+        },
+        {
+            "deviceId": "10BE461P01001QB",
+            "name": "com.DefaultCompany.DinoMover",
+            "processId": 24110,
             "exited": false
         }
     ],
