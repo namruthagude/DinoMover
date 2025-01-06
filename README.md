@@ -19,8 +19,10 @@ DinoMover is an endless horizontal runner game developed in Unity. The player co
 ### Steps to run the project:
 
 1. Clone the repository to your local machine:
+   ```bash
    git clone https://github.com/namruthagude/DinoMover.git
-2. Open the project in Unity:
+   ```
+3. Open the project in Unity:
   - Launch Unity Hub and click on "Add".
   - Select the directory where the project was cloned.
 3. Ensure that the Unity version you are using is 2022.3.47f1 or later.
